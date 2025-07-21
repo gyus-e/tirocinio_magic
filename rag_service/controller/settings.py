@@ -4,11 +4,11 @@ from llama_index.llms.huggingface import HuggingFaceLLM
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from models import RagConfiguration
 from environ import HF_HOME, EMBED_MODEL_DIR
-
+from utils import LLM
 
 def initialize_settings(config: RagConfiguration):
 
-    model_name = config.model_name
+    llm = LLM(config.model_name)
     embed_model_name: str = config.embed_model_name
     chunk_size: int = config.chunk_size
     chunk_overlap: int = config.chunk_overlap
@@ -22,8 +22,8 @@ def initialize_settings(config: RagConfiguration):
     kwargs = {"top_p": top_p} if top_p else kwargs
 
     Settings.llm = HuggingFaceLLM(
-        model_name=model_name,
-        tokenizer_name=model_name,
+        model=llm.model(),
+        tokenizer=llm.tokenizer(),
         generate_kwargs=kwargs,
     )
 

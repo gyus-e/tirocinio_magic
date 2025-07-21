@@ -2,8 +2,8 @@ import torch
 from controller.initialize_cache import initialize_cache
 import controller
 from utils import LLM
-from .configuration_mock import configuration
-from .questions_mock import questions
+from test.configuration_mock import configuration
+from test.questions_mock import questions
 
 torch.set_grad_enabled(False)
 documents = None

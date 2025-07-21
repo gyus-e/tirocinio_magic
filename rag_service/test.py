@@ -1,17 +1,24 @@
+import os
 import asyncio
 from controller import Agent, Index, QueryEngine, initialize_settings
 from utils import LLM, Collection
-from environ import DOCUMENTS_DIR
-from .configuration_mock import configuration
-from .questions_mock import questions
+from environ import DOCUMENTS_DIR, STORAGE
+from test.configuration_mock import configuration
+from test.questions_mock import questions
 
 documents = None
 llm = LLM(configuration.model_name)
 initialize_settings(configuration)
+persist_dir = os.path.join(STORAGE, "test_index")
 
 async def test():
     documents = Collection(input_dir=DOCUMENTS_DIR).documents()
-    index = Index.from_documents(documents).index()
+    
+    if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
+        index = Index.from_documents(documents).persist(persist_dir).index()
+    else:
+        index = Index.from_storage(persist_dir).index()
+
     query_engine = QueryEngine(index).query_engine()
     agent = Agent(configuration.system_prompt, query_engine, with_context=True).agent()
     print("\n\tRAG\n")

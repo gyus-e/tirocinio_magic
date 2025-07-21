@@ -4,7 +4,7 @@ from models import RagConfiguration
 
 model_name = "meta-llama/Llama-3.2-1B-Instruct"
 
-embed_model_name = "BAAI/bge-small-en-v1.5"
+embed_model_name = "BAAI/bge-base-en-v1.5"
 
 rag_system_prompt = """
     Sei un assistente bibliotecario. Hai accesso a una serie di documenti contenenti informazioni sul catalogo della Biblioteca Pontaniana di Napoli.
@@ -12,8 +12,8 @@ rag_system_prompt = """
 """.join("\n")
 
 chunk_size = 512
-chunk_overlap = 50
-temperature = 0.2
+chunk_overlap = 64
+temperature = 0.4
 
 configuration = RagConfiguration(rag_system_prompt, model_name, embed_model_name, chunk_size, chunk_overlap, temperature)
 # DB.session.add(configuration)

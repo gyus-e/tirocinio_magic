@@ -1,2 +1,4 @@
 _huggingface/*
 .~lock.outputs.ods#
+huggingface
+llama_index

@@ -27,7 +27,7 @@ def post_configuration():
         configuration, warnings = validate_configuration_request(request)
         initialize_settings(configuration)
         documents = Collection().documents()
-        vector_store_dir = os.path.join(STORAGE, f"vector_store_{configuration.config_id}")
+        vector_store_dir = os.path.join(STORAGE, f"{configuration.vector_store_name}")
         Index.from_documents(documents).persist(vector_store_dir)
         DB.session.add(configuration)
         DB.session.commit()

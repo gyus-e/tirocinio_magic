@@ -12,7 +12,7 @@ rag_blueprint = Blueprint("rag", __name__)
 async def rag_chat(config_id):
     query = request.get_json().get("query") if request.is_json else request.form.get("query")
     config: RagConfiguration = RagConfiguration.query.get_or_404(config_id)
-    vector_store_dir = os.path.join(STORAGE, f"vector_store_{config.config_id}")
+    vector_store_dir = os.path.join(STORAGE, f"{config.vector_store_name}")
     initialize_settings(config)
     try:
         index = Index.from_storage(vector_store_dir).index()

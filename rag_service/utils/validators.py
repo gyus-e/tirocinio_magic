@@ -7,9 +7,9 @@ def validate_configuration_request(request: Request) -> tuple[RagConfiguration, 
     system_prompt = data.get("system_prompt")
     model_name = data.get("model_name")
     embed_model_name = data.get("embed_model_name")
-    chunk_size = data.get("chunk_size", 512)
-    chunk_overlap = data.get("chunk_overlap", 64)
-    temperature = data.get("temperature", 0.4)
+    chunk_size = int(data.get("chunk_size", 512))
+    chunk_overlap = int(data.get("chunk_overlap", 64))
+    temperature = float(data.get("temperature", 0.4))
     top_k = data.get("top_k", None)
     top_p = data.get("top_p", None)
 

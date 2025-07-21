@@ -15,7 +15,7 @@ def initialize_settings(config: RagConfiguration):
     chunk_size: int = config.chunk_size
     chunk_overlap: int = config.chunk_overlap
 
-    temperature: float = config.temperature
+    temperature: float = config.temperature if config.temperature else 0.0
     top_k: int | None = config.top_k
     top_p: float | None = config.top_p
 

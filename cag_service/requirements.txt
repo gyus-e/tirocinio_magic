@@ -1,0 +1,9 @@
+Flask
+flask_sqlalchemy
+psycopg2-binary
+python-dotenv
+llama-index-core
+transformers
+accelerate
+torch
+hf_xet

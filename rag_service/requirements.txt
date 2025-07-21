@@ -1,0 +1,8 @@
+Flask[async]
+flask_sqlalchemy
+psycopg2-binary
+python-dotenv
+llama-index
+llama-index-llms-huggingface
+llama-index-embeddings-huggingface
+llama-index-vector-stores-chroma

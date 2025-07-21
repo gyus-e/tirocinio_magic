@@ -12,7 +12,7 @@ class CagConfiguration(DB.Model):
     cache_name: str = DB.Column(UUID(as_uuid=True), nullable=False)
 
 
-    def __init__(self, system_prompt: str, model_name: str):
+    def __init__(self, system_prompt: str, model_name: str, cache_name: str | None = None):
         self.system_prompt = system_prompt
         self.model_name = model_name
-        self.cache_name = str(uuid.uuid4())
+        self.cache_name = cache_name or str(uuid.uuid4())

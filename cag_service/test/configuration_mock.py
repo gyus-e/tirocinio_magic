@@ -1,6 +1,8 @@
 from models import CagConfiguration
 # from utils import DB
 
+cache_name = "test_cache.cache"
+
 model_name = "meta-llama/Llama-3.2-1B-Instruct"
 
 cag_system_prompt = """
@@ -8,6 +10,6 @@ cag_system_prompt = """
     Rispondi alle domande degli utenti con le informazioni pertinenti.
 """.join("\n")
 
-configuration = CagConfiguration(cag_system_prompt, model_name)
+configuration = CagConfiguration(cag_system_prompt, model_name, cache_name)
 # DB.session.add(configuration)
 # DB.session.commit()

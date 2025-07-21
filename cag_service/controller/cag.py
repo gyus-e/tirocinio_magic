@@ -128,7 +128,7 @@ def _generate(
             next_token = next_token.to(torch_device)
 
             # Terminate early if an end-of-sequence token is generated        
-            if next_token.item() in stop_tokens:
+            if next_token.item() in stop_tokens and token > 0:
                 break
 
     return output_ids[:, origin_len:]
@@ -147,7 +147,7 @@ def get_stop_tokens(model, tokenizer) -> set[int]:
 
     # Aggiungi token di stop comuni
     if tokenizer:
-        stop_strings = ["<|end|>", "\n\n"]  # Aggiungi le stringhe che vuoi
+        stop_strings = ["<|end|>", "<|system|>"]  # Aggiungi le stringhe che vuoi
         for stop_string in stop_strings:
             # Converti la stringa in token IDs
             stop_token_ids = tokenizer.encode(stop_string, add_special_tokens=False)

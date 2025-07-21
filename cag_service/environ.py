@@ -5,7 +5,6 @@ load_dotenv()
 
 # Must be set in the environment
 HF_TOKEN = os.environ.get("HF_TOKEN", None)
-HF_HOME = os.environ.get("HF_HOME", None)
 DOCUMENTS_DIR =  os.environ.get("DOCUMENTS_DIR", "_documents")
 
 # Database configuration, defaults to SQLite in memory
@@ -17,6 +16,7 @@ DB_HOST = os.environ.get("DB_HOST", "localhost")
 DB_PORT = os.environ.get("DB_PORT", "5432")
 
 # Safe to leave the default values
+HF_HOME = os.environ.get("HF_HOME", None)
 STORAGE = os.environ.get("STORAGE", "_storage")
 
 # Obtained from the previous variables

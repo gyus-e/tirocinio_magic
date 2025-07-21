@@ -1,7 +1,7 @@
 from models import CagConfiguration
 # from utils import DB
 
-cache_name = "test_cache.cache"
+cache_name = "test_cache"
 
 model_name = "meta-llama/Llama-3.2-1B-Instruct"
 

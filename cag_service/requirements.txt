@@ -3,6 +3,7 @@ flask_sqlalchemy
 psycopg2-binary
 python-dotenv
 llama-index-core
+llama-index-llms-huggingface
 transformers
 accelerate
 torch

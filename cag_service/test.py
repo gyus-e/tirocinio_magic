@@ -5,12 +5,12 @@ from utils import LLM
 from test.configuration_mock import configuration
 from test.questions_mock import questions
 
-torch.set_grad_enabled(False)
-documents = None
-llm = LLM(configuration.model_name)
-cache_path = initialize_cache(configuration, llm)
 
 def test():
+    torch.set_grad_enabled(False)
+    llm = LLM(configuration.model_name)
+    cache_path = initialize_cache(configuration, llm)
+    
     print("\n\tCAG\n")
     for i, question in enumerate(questions):
         print(f"Question {i}: {question}")

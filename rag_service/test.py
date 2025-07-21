@@ -6,12 +6,10 @@ from environ import DOCUMENTS_DIR, STORAGE
 from test.configuration_mock import configuration
 from test.questions_mock import questions
 
-documents = None
-llm = LLM(configuration.model_name)
-initialize_settings(configuration)
 persist_dir = os.path.join(STORAGE, "test_index")
 
 async def test():
+    initialize_settings(configuration)
     documents = Collection(input_dir=DOCUMENTS_DIR).documents()
     
     if not os.path.exists(persist_dir) or not os.listdir(persist_dir):

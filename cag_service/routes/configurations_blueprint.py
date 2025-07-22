@@ -29,7 +29,7 @@ def post_configuration():
             model_name=model_name,
         )
         llm = LLM(configuration.model_name)  # TODO: use async message queue
-        # TODO: The following should go after the user sends the documents
+        # TODO: The following should go after the user sends the documents or add the documents to the configuration
         # cache_path = initialize_cache(configuration, llm)
         DB.session.add(configuration)
         DB.session.commit()

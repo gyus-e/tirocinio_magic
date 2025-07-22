@@ -9,7 +9,7 @@ from utils import LLM
 cag_blueprint = Blueprint("cag", __name__)
 
 
-# TODO: Input should be config and collection ids
+# TODO: Input should be config and collection ids or add the documents to the configuration
 @cag_blueprint.post("/<config_id>/chat")
 def cag_chat(config_id):
     config: CagConfiguration = CagConfiguration.query.get_or_404(config_id)

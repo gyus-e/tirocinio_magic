@@ -4,7 +4,7 @@ from models import RagConfiguration
 from utils import DB, LLM, Collection
 from utils.validators import validate_configuration_request
 from controller import Agent, initialize_settings, Index, QueryEngine
-from environ import STORAGE
+from environ import STORAGE, DOCUMENTS_DIR
 
 configurations_blueprint = Blueprint("configurations", __name__)
 
@@ -26,10 +26,14 @@ def post_configuration():
     try:
         configuration, warnings = validate_configuration_request(request)
         initialize_settings(configuration)
-        # TODO: The following should go after the user sends the documents
-        # documents = Collection().documents()
+        collection = Collection(
+            input_dir=DOCUMENTS_DIR, collection_name=configuration.vector_store_name
+        )
+        documents = collection.documents()
+        chroma_collection = collection.collection()
+        index = Index.from_documents(documents, collection=chroma_collection)
         # vector_store_dir = os.path.join(STORAGE, f"{configuration.vector_store_name}")
-        # Index.from_documents(documents).persist(vector_store_dir)
+        # index.persist(persist_dir=vector_store_dir)
         DB.session.add(configuration)
         DB.session.commit()
 

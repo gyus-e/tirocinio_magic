@@ -5,10 +5,12 @@ from transformers.cache_utils import DynamicCache
 from environ import STORAGE
 
 
-_accelerator = Accelerator()
 _default_cache_len: int | None = None
 
-def create_kv_cache(model, tokenizer, prompt: str) -> DynamicCache:
+
+def create_kv_cache(
+    model, tokenizer, prompt: str, torch_device: torch.device
+) -> DynamicCache:
     """prepares a reusable key-value cache for a transformer model's attention mechanism."""
     """passes a prompt through the model once, creating a KV cache that records all the hidden states from each layer"""
     """@param model: the transformer model used for encoding the prompt."""
@@ -16,7 +18,6 @@ def create_kv_cache(model, tokenizer, prompt: str) -> DynamicCache:
     """@param prompt: a string input used as the prompt"""
     """@return: DynamicCache object containing the key-value cache."""
 
-    torch_device = _accelerator.device
     print(f"Using device: {torch_device}")
 
     # Tokenize the prompt using the tokenizer and convert it into input IDs
@@ -73,7 +74,13 @@ def get_answer(
 ) -> str:
     # Call generate to produce the answer
     input_ids_q = tokenizer(question + "\n", return_tensors="pt").input_ids.to(device)
-    gen_ids_q = _generate(model, input_ids_q, loaded_cache, stop_tokens=get_stop_tokens(model, tokenizer))  # TODO: Refactor this, don't repeat it every time
+    gen_ids_q = _generate(
+        model,
+        input_ids_q,
+        device,
+        loaded_cache,
+        stop_tokens=get_stop_tokens(model, tokenizer),
+    )  # TODO: Don't call get_stop_tokens every time
 
     # Decode the final result with tokenizer.decode
     answer = tokenizer.decode(gen_ids_q[0], skip_special_tokens=True)
@@ -83,6 +90,7 @@ def get_answer(
 def _generate(
     model,
     input_ids: torch.Tensor,
+    torch_device: torch.device,
     past_key_values: DynamicCache,
     stop_tokens: set[int],
     max_new_tokens: int = 300,
@@ -96,7 +104,6 @@ def _generate(
     """@param max_new_tokens: The maximum number of new tokens to generate."""
     """@return: A tensor containing the generated token IDs."""
 
-    torch_device = _accelerator.device
     origin_len: int = input_ids.shape[-1]
 
     input_ids = input_ids.to(torch_device)
@@ -127,8 +134,8 @@ def _generate(
             # The newly generated token becomes the input for the next iteration
             next_token = next_token.to(torch_device)
 
-            # Terminate early if an end-of-sequence token is generated        
-            if next_token.item() in stop_tokens and token > 0:
+            # Terminate early if an end-of-sequence token is generated
+            if next_token.item() in stop_tokens and token > 1:
                 break
 
     return output_ids[:, origin_len:]
@@ -142,12 +149,12 @@ def get_stop_tokens(model, tokenizer) -> set[int]:
     )
     stop_tokens = set(eos_token_ids)
 
-    if hasattr(model.config, 'pad_token_id') and model.config.pad_token_id is not None:
+    if hasattr(model.config, "pad_token_id") and model.config.pad_token_id is not None:
         stop_tokens.add(model.config.pad_token_id)
 
     # Aggiungi token di stop comuni
     if tokenizer:
-        stop_strings = ["<|end|>", "<|system|>"]  # Aggiungi le stringhe che vuoi
+        stop_strings = ["<|end|>"]  # Aggiungi le stringhe che vuoi
         for stop_string in stop_strings:
             # Converti la stringa in token IDs
             stop_token_ids = tokenizer.encode(stop_string, add_special_tokens=False)

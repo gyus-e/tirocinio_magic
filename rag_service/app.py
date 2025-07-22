@@ -1,11 +1,14 @@
 from flask import Flask
+import torch
 import routes
 from utils import DB
 from environ import DB_URL
 
+torch.set_grad_enabled(False)
+
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+app.config["SQLALCHEMY_DATABASE_URI"] = DB_URL
 DB.init_app(app)
 
 with app.app_context():

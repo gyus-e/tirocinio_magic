@@ -1,17 +1,21 @@
 import os
 import asyncio
+import torch
 from controller import Agent, Index, QueryEngine, initialize_settings
 from utils import LLM, Collection
 from environ import DOCUMENTS_DIR, STORAGE
-from test.configuration_mock import configuration
-from test.questions_mock import questions
+from test_utils import configuration, questions
+
+
+torch.set_grad_enabled(False)
 
 persist_dir = os.path.join(STORAGE, "test_index")
+
 
 async def test():
     initialize_settings(configuration)
     documents = Collection(input_dir=DOCUMENTS_DIR).documents()
-    
+
     if not os.path.exists(persist_dir) or not os.listdir(persist_dir):
         index = Index.from_documents(documents).persist(persist_dir).index()
     else:

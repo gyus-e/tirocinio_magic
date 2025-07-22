@@ -1,9 +1,9 @@
 #!/bin/bash
 
-list=$(find . -type d -name "__pycache__" | grep -v ".venv")
-for dir in $list; do
-    echo "Removing $dir"
-    rm -rf "$dir"
-done
+rm -rf cag_service/__pycache__
+rm -rf cag_service/*/__pycache__
+rm -rf cag_service/_storage/*
 
-rm -rf **/_storage/*
+rm -rf rag_service/__pycache__
+rm -rf rag_service/*/__pycache__
+rm -rf rag_service/_storage/*

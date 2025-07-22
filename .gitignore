@@ -1,4 +1,5 @@
 _huggingface/*
 .~lock.outputs.ods#
 huggingface
+huggingface.lnk
 llama_index

@@ -25,20 +25,24 @@ def post_configuration():
     try:
         system_prompt, model_name, warnings = validate_configuration_request(request)
         configuration = CagConfiguration(
-            system_prompt=system_prompt, 
+            system_prompt=system_prompt,
             model_name=model_name,
-            )
-        llm = LLM(configuration.model_name)
-        cache_path = initialize_cache(configuration, llm) #TODO: use async message queue
+        )
+        llm = LLM(configuration.model_name)  # TODO: use async message queue
+        # TODO: The following should go after the user sends the documents
+        # cache_path = initialize_cache(configuration, llm)
         DB.session.add(configuration)
         DB.session.commit()
     except ValueError as e:
         return jsonify(message=str(e)), 400
 
-    return jsonify(
-        configuration=configuration_extract_data(configuration),
-        warnings=warnings if warnings else None,
-        ), 200
+    return (
+        jsonify(
+            configuration=configuration_extract_data(configuration),
+            warnings=warnings if warnings else None,
+        ),
+        200,
+    )
 
 
 def configuration_extract_data(configuration: CagConfiguration) -> dict:

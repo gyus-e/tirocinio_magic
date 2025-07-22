@@ -8,9 +8,14 @@ from environ import STORAGE
 rag_blueprint = Blueprint("rag", __name__)
 
 
+# TODO: Input should be config and collection ids
 @rag_blueprint.post("/<config_id>/chat")
 async def rag_chat(config_id):
-    query = request.get_json().get("query") if request.is_json else request.form.get("query")
+    query = (
+        request.get_json().get("query")
+        if request.is_json
+        else request.form.get("query")
+    )
     config: RagConfiguration = RagConfiguration.query.get_or_404(config_id)
     vector_store_dir = os.path.join(STORAGE, f"{config.vector_store_name}")
     initialize_settings(config)

@@ -1,14 +1,20 @@
 import os
+from transformers.cache_utils import DynamicCache
 from environ import STORAGE
 from models import CagConfiguration
 from utils import Collection, LLM
 from .cag_context import build_cag_context
 from . import create_kv_cache, save_cache
 
+
 def initialize_cache(configuration: CagConfiguration, llm: LLM):
+    # Save clean cache before the forward pass
+    # clean_cache: DynamicCache = DynamicCache()
+    # save_cache(clean_cache, cache_name=configuration.model_name, storage=STORAGE)
+
     cache_name = f"{configuration.cache_name}.cache"
     cache_path = os.path.join(STORAGE, cache_name)
-    
+
     if not os.path.exists(cache_path):
         documents = Collection().documents()
 
@@ -22,6 +28,7 @@ def initialize_cache(configuration: CagConfiguration, llm: LLM):
             model=llm.model(),
             tokenizer=llm.tokenizer(),
             prompt=cag_prompt,
+            torch_device=llm.device(),
         )
 
         save_cache(cache, cache_name=cache_name, storage=STORAGE)

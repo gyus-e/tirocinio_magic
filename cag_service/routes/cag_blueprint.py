@@ -9,6 +9,7 @@ from utils import LLM
 cag_blueprint = Blueprint("cag", __name__)
 
 
+# TODO: Input should be config and collection ids
 @cag_blueprint.post("/<config_id>/chat")
 def cag_chat(config_id):
     config: CagConfiguration = CagConfiguration.query.get_or_404(config_id)
@@ -16,7 +17,7 @@ def cag_chat(config_id):
         llm = LLM(config.model_name)
         query = validate_cag_chat_request(request)
         cache_path = initialize_cache(config, llm)
-        cache = torch.load(cache_path, weights_only=False)
+        cache = torch.load(cache_path, map_location=llm.device(), weights_only=False)
         answer = get_answer(query, llm.tokenizer(), llm.model(), llm.device(), cache)
         print(f"Answer: {answer}")
         clean_up_cache(cache)

@@ -26,19 +26,23 @@ def post_configuration():
     try:
         configuration, warnings = validate_configuration_request(request)
         initialize_settings(configuration)
-        documents = Collection().documents()
-        vector_store_dir = os.path.join(STORAGE, f"{configuration.vector_store_name}")
-        Index.from_documents(documents).persist(vector_store_dir)
+        # TODO: The following should go after the user sends the documents
+        # documents = Collection().documents()
+        # vector_store_dir = os.path.join(STORAGE, f"{configuration.vector_store_name}")
+        # Index.from_documents(documents).persist(vector_store_dir)
         DB.session.add(configuration)
         DB.session.commit()
 
     except ValueError as e:
         return jsonify(message=str(e)), 400
 
-    return jsonify(
-        configuration=configuration_extract_data(configuration),
-        warnings=warnings if warnings else None,
-        ), 200
+    return (
+        jsonify(
+            configuration=configuration_extract_data(configuration),
+            warnings=warnings if warnings else None,
+        ),
+        200,
+    )
 
 
 def configuration_extract_data(configuration: RagConfiguration) -> dict:

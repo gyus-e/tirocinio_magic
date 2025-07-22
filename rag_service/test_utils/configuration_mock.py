@@ -3,7 +3,7 @@ from models import RagConfiguration
 # from utils import DB
 
 
-model_name = "microsoft/Phi-4-mini-instruct"
+model_name = "meta-llama/Llama-3.2-3B-Instruct"
 
 embed_model_name = "BAAI/bge-m3"
 

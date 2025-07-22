@@ -3,9 +3,9 @@ from models import RagConfiguration
 # from utils import DB
 
 
-model_name = "meta-llama/Llama-3.2-3B-Instruct"
+model_name = "microsoft/Phi-4-mini-instruct"
 
-embed_model_name = "BAAI/bge-base-en-v1.5"
+embed_model_name = "BAAI/bge-m3"
 
 rag_system_prompt = """
     Sei un assistente bibliotecario. Hai accesso a una serie di documenti contenenti informazioni sul catalogo della Biblioteca Pontaniana di Napoli.

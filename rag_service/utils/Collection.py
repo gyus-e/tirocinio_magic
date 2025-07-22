@@ -6,26 +6,31 @@ from utils.chroma import chroma_client
 
 class Collection:
     def __init__(self, input_dir=DOCUMENTS_DIR, collection_name: str | None = None):
-        print("Loading documents from directory...")
-        self._documents = SimpleDirectoryReader(input_dir=input_dir).load_data()
-        print(f"Loaded {len(self._documents)} documents.")
         try:
             self._collection = chroma_client.get_collection(
                 collection_name or input_dir
             )
-            self._is_new = False
+
+            self._documents = []
+
         except Exception as e:
-            print(f"Collection not found, creating a new one:\n{e}")
+            print("Collection not found, creating a new one.\n")
             self._collection = chroma_client.create_collection(
                 collection_name or input_dir
             )
-            self._is_new = True
+
+            print("Loading documents from directory...")
+            self._documents = SimpleDirectoryReader(input_dir=input_dir).load_data()
+            print(f"Loaded {len(self._documents)} documents.")
+
+    @classmethod
+    def from_directory(cls, input_dir=DOCUMENTS_DIR):
+        print("Loading documents from directory...")
+        documents = SimpleDirectoryReader(input_dir=input_dir).load_data()
+        print(f"Loaded {len(documents)} documents.")
 
     def documents(self) -> list[Document]:
         return self._documents
 
     def collection(self) -> chromadb.Collection:
         return self._collection
-
-    def is_new(self) -> bool:
-        return self._is_new

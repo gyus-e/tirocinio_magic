@@ -3,6 +3,7 @@ flask_sqlalchemy
 psycopg2-binary
 python-dotenv
 chromadb
+hf_xet
 llama-index
 llama-index-llms-huggingface
 llama-index-embeddings-huggingface

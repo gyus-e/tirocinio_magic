@@ -18,7 +18,7 @@ async def test():
     documents = collection.documents()
     chroma_collection = collection.collection()
 
-    if collection.is_new():
+    if documents:
         index = Index.from_documents(documents, collection=chroma_collection).index()
     else:
         index = Index.from_collection(chroma_collection).index()

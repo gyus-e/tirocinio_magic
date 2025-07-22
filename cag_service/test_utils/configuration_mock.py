@@ -4,7 +4,7 @@ from models import CagConfiguration
 
 cache_name = "test_cache"
 
-model_name = "meta-llama/Llama-3.2-3B-Instruct"
+model_name = "microsoft/Phi-4-mini-instruct"
 
 cag_system_prompt = """
     Sei un assistente bibliotecario. Nel contesto ti sono fornite informazioni sul catalogo della Biblioteca Pontaniana di Napoli.

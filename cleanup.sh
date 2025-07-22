@@ -7,3 +7,5 @@ rm -rf cag_service/_storage/*
 rm -rf rag_service/__pycache__
 rm -rf rag_service/*/__pycache__
 rm -rf rag_service/_storage/*
+
+python delete_test_collection.py

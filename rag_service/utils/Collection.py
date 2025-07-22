@@ -15,6 +15,7 @@ class Collection:
             )
             self._is_new = False
         except Exception as e:
+            print(f"Collection not found, creating a new one:\n{e}")
             self._collection = chroma_client.create_collection(
                 collection_name or input_dir
             )

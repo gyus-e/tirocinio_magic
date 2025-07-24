@@ -6,3 +6,4 @@ hf_xet
 llama-index-core
 transformers
 accelerate
+auto-gptq

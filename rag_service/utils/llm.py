@@ -12,8 +12,8 @@ class LLM:
         print(f"Loading model: {model_name}")
         self._model = AutoModelForCausalLM.from_pretrained(
             model_name,
-            device_map=None,
-        ).to(self._device)
+            device_map=self._device
+        )
         print("Model loaded successfully.")
 
         print(f"Loading tokenizer: {model_name}")

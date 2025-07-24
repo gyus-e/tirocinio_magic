@@ -7,4 +7,4 @@ llama-index-core
 transformers
 accelerate
 auto-gptq
-optium
+optimum

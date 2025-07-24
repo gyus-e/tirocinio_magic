@@ -12,7 +12,7 @@ def test():
 
     print("\n\tCAG\n")
     for i, question in enumerate(questions):
-        print(f"Question {i}: {question}")
+        print(f"Question {i+1}: {question}")
 
         cache = torch.load(cache_path, map_location=llm.device(), weights_only=False)
         cag_answer = controller.get_answer(

@@ -34,7 +34,7 @@ async def test():
     agent = Agent(configuration.system_prompt, query_engine, with_context=True).agent()
     print("\n\tRAG\n")
     for i, question in enumerate(questions):
-        print(f"Question {i}: {question}")
+        print(f"Question {i+1}: {question}")
         rag_answer = await agent.run(question)
         print(f"RAG:\n{rag_answer}\n")
 

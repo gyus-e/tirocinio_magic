@@ -7,7 +7,7 @@ from test_utils import configuration, questions
 
 def test():
     torch.set_grad_enabled(False)
-    llm = LLM(configuration.model_name)
+    llm = LLM(configuration.model_name, configuration.tokenizer_name)
     cache_path = initialize_cache(configuration, llm)
 
     print("\n\tCAG\n")

@@ -3,7 +3,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 
 
 class LLM:
-    def __init__(self, model_name: str):
+    def __init__(self, model_name: str, tokenizer_name: str):
         print("Starting LLM initialization...")
 
         self._device = Accelerator().device
@@ -16,8 +16,8 @@ class LLM:
         )
         print("Model loaded successfully.")
 
-        print(f"Loading tokenizer: {model_name}")
-        self._tokenizer = AutoTokenizer.from_pretrained(model_name)
+        print(f"Loading tokenizer: {tokenizer_name}")
+        self._tokenizer = AutoTokenizer.from_pretrained(tokenizer_name)
         print("Tokenizer loaded successfully.")
 
         self._model.eval()

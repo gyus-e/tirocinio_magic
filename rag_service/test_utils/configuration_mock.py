@@ -4,6 +4,7 @@ from models import RagConfiguration
 
 
 model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
+tokenizer_name = "mistralai/Mistral-7B-Instruct-v0.2"
 
 rag_system_prompt = """
     Sei un assistente bibliotecario. Hai accesso a una serie di documenti contenenti informazioni sul catalogo della Biblioteca Pontaniana di Napoli.
@@ -21,6 +22,7 @@ temperature = 0.4
 configuration = RagConfiguration(
     rag_system_prompt,
     model_name,
+    tokenizer_name,
     embed_model_name,
     chunk_size,
     chunk_overlap,

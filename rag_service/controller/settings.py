@@ -8,7 +8,7 @@ from utils import LLM
 
 def initialize_settings(config: RagConfiguration):
 
-    llm = LLM(config.model_name)
+    llm = LLM(config.model_name, config.tokenizer_name)
     embed_model_name: str = config.embed_model_name
     chunk_size: int = config.chunk_size
     chunk_overlap: int = config.chunk_overlap

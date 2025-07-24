@@ -1,9 +1,8 @@
 Flask[async]
-flask_sqlalchemy
+Flask-SQLAlchemy
 psycopg2-binary
 python-dotenv
-llama-index-core
 hf_xet
+llama-index-core
 transformers
 accelerate
--r requirements_torch.txt

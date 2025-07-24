@@ -1,13 +1,12 @@
 Flask[async]
-flask_sqlalchemy
+Flask-SQLAlchemy
 psycopg2-binary
 python-dotenv
 chromadb
+hf_xet
 llama-index
 llama-index-llms-huggingface
 llama-index-embeddings-huggingface
 llama-index-vector-stores-chroma
 transformers
 accelerate
-hf_xet
--r requirements_torch.txt

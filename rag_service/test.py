@@ -36,7 +36,7 @@ async def test():
     for i, question in enumerate(questions):
         print(f"Question {i}: {question}")
         rag_answer = await agent.run(question)
-        print(f"Answer: {rag_answer}\n")
+        print(f"RAG:\n{rag_answer}\n")
 
 
 if __name__ == "__main__":

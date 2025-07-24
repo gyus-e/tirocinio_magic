@@ -19,7 +19,7 @@ def test():
             question, llm.tokenizer(), llm.model(), llm.device(), cache
         )
         controller.clean_up_cache(cache)
-        print(f"CAG: {cag_answer}\n")
+        print(f"CAG:\n{cag_answer}\n")
 
 
 if __name__ == "__main__":

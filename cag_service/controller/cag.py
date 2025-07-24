@@ -147,10 +147,15 @@ def get_stop_tokens(model, tokenizer) -> set[int]:
         if isinstance(model.config.eos_token_id, int)
         else model.config.eos_token_id or []
     )
+    print("eos_token_ids:", eos_token_ids)
+    if 128001 in eos_token_ids:
+        print("llama3.2 eos token id detected")
     stop_tokens = set(eos_token_ids)
 
     if hasattr(model.config, "pad_token_id") and model.config.pad_token_id is not None:
+        print("pad_token_id:", model.config.pad_token_id)
         stop_tokens.add(model.config.pad_token_id)
+    print("stop_tokens:", stop_tokens)
 
     # Aggiungi token di stop comuni
     if tokenizer:

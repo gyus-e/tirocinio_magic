@@ -11,3 +11,4 @@ llama-index-vector-stores-chroma
 transformers
 accelerate
 auto-gptq
+optium

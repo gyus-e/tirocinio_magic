@@ -1,6 +1,6 @@
 import os
 from transformers.cache_utils import DynamicCache
-from environ import STORAGE
+from environ import STORAGE, DOCUMENTS_DIR
 from models import CagConfiguration
 from utils import Collection, LLM
 from .cag_context import build_cag_context
@@ -16,7 +16,7 @@ def initialize_cache(configuration: CagConfiguration, llm: LLM):
     cache_path = os.path.join(STORAGE, cache_name)
 
     if not os.path.exists(cache_path):
-        documents = Collection().documents()
+        documents = Collection(input_dir=DOCUMENTS_DIR).documents()
 
         document_texts = [doc.text for doc in documents]
         cag_prompt = build_cag_context(

@@ -15,8 +15,8 @@ rag_system_prompt = """
 )
 
 embed_model_name = "BAAI/bge-m3"
-chunk_size = 1024
-chunk_overlap = 128
+chunk_size = 512
+chunk_overlap = 64
 temperature = 0.4
 
 configuration = RagConfiguration(

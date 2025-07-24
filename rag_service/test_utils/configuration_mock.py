@@ -3,9 +3,7 @@ from models import RagConfiguration
 # from utils import DB
 
 
-model_name = "meta-llama/Llama-3.2-3B-Instruct"
-
-embed_model_name = "BAAI/bge-m3"
+model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GGUF"
 
 rag_system_prompt = """
     Sei un assistente bibliotecario. Hai accesso a una serie di documenti contenenti informazioni sul catalogo della Biblioteca Pontaniana di Napoli.
@@ -15,8 +13,9 @@ rag_system_prompt = """
     "\n"
 )
 
-chunk_size = 512
-chunk_overlap = 64
+embed_model_name = "BAAI/bge-m3"
+chunk_size = 1024
+chunk_overlap = 128
 temperature = 0.4
 
 configuration = RagConfiguration(

@@ -4,8 +4,8 @@ from models import CagConfiguration
 
 cache_name = "test_cache"
 
-model_name = "TheBloke/Mistral-7B-Instruct-v0.2-GPTQ"
-tokenizer_name = "mistralai/Mistral-7B-Instruct-v0.2"
+model_name = "meta-llama/Llama-3.2-3B-Instruct"
+tokenizer_name = "meta-llama/Llama-3.2-3B-Instruct"
 
 cag_system_prompt = """
     Sei un assistente bibliotecario. Nel contesto ti sono fornite informazioni sul catalogo della Biblioteca Pontaniana di Napoli.
@@ -14,6 +14,8 @@ cag_system_prompt = """
     "\n"
 )
 
-configuration = CagConfiguration(cag_system_prompt, model_name, tokenizer_name, cache_name)
+configuration = CagConfiguration(
+    cag_system_prompt, model_name, tokenizer_name, cache_name
+)
 # DB.session.add(configuration)
 # DB.session.commit()

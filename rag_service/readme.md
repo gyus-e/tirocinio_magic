@@ -1,6 +1,7 @@
 * Prerequisites
 
 - python3 and pip
+- [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads)
 - postgres
 - chromadb
 

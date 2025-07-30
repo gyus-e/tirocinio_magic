@@ -3,3 +3,4 @@ _huggingface/*
 huggingface
 huggingface.lnk
 llama_index
+~$outputs.ods
